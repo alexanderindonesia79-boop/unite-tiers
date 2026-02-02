@@ -3,35 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <title>Unite Tiers</title>
+
   <style>
     body {
       background: #0f0f0f;
-      color: #ffffff;
+      color: white;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 20px;
     }
     h1 {
       color: #00ffcc;
     }
     .tier {
       margin: 20px auto;
-      padding: 15px;
-      max-width: 500px;
-      border-radius: 10px;
+      max-width: 700px;
       background: #1e1e1e;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .tier h2 {
+      margin: 5px;
+    }
+    .dropzone {
+      min-height: 60px;
+      border: 2px dashed #333;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .player {
+      background: #00ffcc;
+      color: black;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: grab;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>🔥 Unite Tiers 🔥</h1>
-  <p>Ranking de jugadores</p>
+<h1>🔥 Unite Tiers 🔥</h1>
+<p>Arrastra los jugadores entre tiers</p>
 
-  <div class="tier">S Tier</div>
-  <div class="tier">A Tier</div>
-  <div class="tier">B Tier</div>
-  <div class="tier">C Tier</div>
+<div class="tier">
+  <h2>S Tier</h2>
+  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+
+<div class="tier">
+  <h2>A Tier</h2>
+  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+
+<div class="tier">
+  <h2>B Tier</h2>
+  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+
+<div class="tier">
+  <h2>C Tier</h2>
+  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+
+<h2>Jugadores</h2>
+<div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <div class="player" draggable="true" ondragstart="drag(event)" id="p1">Jugador 1</div>
+  <div class="player" draggable="true" ondragstart="drag(event)" id="p2">Jugador 2</div>
+  <div class="player" draggable="true" ondragstart="drag(event)" id="p3">Jugador 3</div>
+</div>
+
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop(ev) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
 
 </body>
 </html>
