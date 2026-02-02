@@ -5,140 +5,173 @@
 <title>Unite Tiers</title>
 
 <style>
-body {
-  background:#111;
+body{
+  margin:0;
+  background:#0f0f0f;
   color:white;
   font-family:Arial, sans-serif;
-  margin:0;
-  padding:20px;
 }
 
-h1 {
-  text-align:center;
-  color:#00ffcc;
-  margin-bottom:20px;
-}
-
-.tier {
+/* BARRA SUPERIOR */
+.header{
+  background:#0a0a0a;
+  padding:10px 15px;
   display:flex;
   align-items:center;
-  margin-bottom:8px;
-  border-radius:8px;
-  overflow:hidden;
+  gap:15px;
+  border-bottom:2px solid #222;
 }
 
-.tier-name {
-  width:90px;
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#00ffcc;
+}
+
+/* BUSCADOR */
+.search{
+  flex:1;
+}
+
+.search input{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:none;
+  outline:none;
+}
+
+/* MODOS */
+.mode-select{
+  background:#1e1e1e;
+  color:white;
+  border:none;
+  padding:8px;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+/* CONTENEDOR */
+.main{
+  display:flex;
+  height:calc(100vh - 56px);
+}
+
+/* TIERS */
+.tiers{
+  width:120px;
+  background:#151515;
+  padding:10px;
+}
+
+.tier{
+  margin-bottom:8px;
+  padding:10px;
   text-align:center;
   font-weight:bold;
-  padding:15px 5px;
+  border-radius:6px;
 }
 
-.dropzone {
+.ht1{background:#ff4d4d;}
+.lt1{background:#ff944d;}
+.ht2{background:#ffd24d;color:black;}
+.lt2{background:#d9ff4d;color:black;}
+.ht3{background:#7cff4d;color:black;}
+.lt3{background:#4dff88;color:black;}
+.ht4{background:#4dd2ff;color:black;}
+.lt4{background:#4d88ff;}
+.ht5{background:#8c4dff;}
+.lt5{background:#555;}
+
+/* JUGADORES */
+.players{
   flex:1;
-  min-height:60px;
-  display:flex;
-  align-items:center;
-  gap:10px;
   padding:10px;
-  background:#1b1b1b;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-content:flex-start;
+  overflow-y:auto;
 }
 
-.player {
+.player{
   background:#2ee6c7;
   color:black;
-  padding:8px 12px;
+  padding:6px 10px;
   border-radius:6px;
-  cursor:grab;
   font-weight:bold;
+  cursor:grab;
+  user-select:none;
 }
-
-/* COLORES COMO mctiers */
-.ht1 { background:#ff4d4d; }
-.lt1 { background:#ff944d; }
-.ht2 { background:#ffd24d; color:black; }
-.lt2 { background:#d9ff4d; color:black; }
-.ht3 { background:#7cff4d; color:black; }
-.lt3 { background:#4dff88; color:black; }
-.ht4 { background:#4dd2ff; color:black; }
-.lt4 { background:#4d88ff; }
-.ht5 { background:#8c4dff; }
-.lt5 { background:#555; }
 </style>
 </head>
 
 <body>
 
-<h1>🔥 Unite Tiers 🔥</h1>
+<!-- BARRA SUPERIOR -->
+<div class="header">
+  <div class="logo">🔥 Unite Tiers</div>
 
-<!-- MEJOR ARRIBA -->
-<div class="tier">
-  <div class="tier-name ht1">HT1</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="search">
+    <input type="text" placeholder="Buscar jugador..." onkeyup="buscarJugador(this.value)">
+  </div>
+
+  <!-- MODOS -->
+  <select class="mode-select">
+    <option>CrystalPVP</option>
+    <option>UHC</option>
+    <option>POT</option>
+    <option>NetPot</option>
+    <option>Axe</option>
+    <option>SMP</option>
+    <option>Sword</option>
+    <option>Mace</option>
+  </select>
 </div>
 
-<div class="tier">
-  <div class="tier-name lt1">LT1</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
+<!-- CONTENIDO -->
+<div class="main">
 
-<div class="tier">
-  <div class="tier-name ht2">HT2</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
+  <!-- TIERS -->
+  <div class="tiers">
+    <div class="tier ht1">HT1</div>
+    <div class="tier lt1">LT1</div>
+    <div class="tier ht2">HT2</div>
+    <div class="tier lt2">LT2</div>
+    <div class="tier ht3">HT3</div>
+    <div class="tier lt3">LT3</div>
+    <div class="tier ht4">HT4</div>
+    <div class="tier lt4">LT4</div>
+    <div class="tier ht5">HT5</div>
+    <div class="tier lt5">LT5</div>
+  </div>
 
-<div class="tier">
-  <div class="tier-name lt2">LT2</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
+  <!-- JUGADORES -->
+  <div class="players">
+    <div class="player">Player1</div>
+    <div class="player">Player2</div>
+    <div class="player">Player3</div>
+    <div class="player">Player4</div>
+    <div class="player">Player5</div>
+    <div class="player">Player6</div>
+    <div class="player">Player7</div>
+    <div class="player">Player8</div>
+    <div class="player">Player9</div>
+    <div class="player">Player10</div>
+  </div>
 
-<div class="tier">
-  <div class="tier-name ht3">HT3</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<div class="tier">
-  <div class="tier-name lt3">LT3</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<div class="tier">
-  <div class="tier-name ht4">HT4</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<div class="tier">
-  <div class="tier-name lt4">LT4</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<div class="tier">
-  <div class="tier-name ht5">HT5</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<div class="tier">
-  <div class="tier-name lt5">LT5</div>
-  <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-</div>
-
-<h2>Jugadores</h2>
-<div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-  <div class="player" draggable="true" ondragstart="drag(event)" id="p1">Jugador1</div>
-  <div class="player" draggable="true" ondragstart="drag(event)" id="p2">Jugador2</div>
-  <div class="player" draggable="true" ondragstart="drag(event)" id="p3">Jugador3</div>
 </div>
 
 <script>
-function allowDrop(e){e.preventDefault();}
-function drag(e){e.dataTransfer.setData("text",e.target.id);}
-function drop(e){
-  e.preventDefault();
-  const id=e.dataTransfer.getData("text");
-  e.target.appendChild(document.getElementById(id));
+function buscarJugador(texto){
+  texto = texto.toLowerCase();
+  document.querySelectorAll(".player").forEach(p=>{
+    p.style.display = p.textContent.toLowerCase().includes(texto)
+      ? "block"
+      : "none";
+  });
 }
 </script>
 
 </body>
 </html>
-
