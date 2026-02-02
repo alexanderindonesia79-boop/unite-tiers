@@ -12,66 +12,48 @@ body{
   font-family:Arial, sans-serif;
 }
 
-/* BARRA SUPERIOR */
+/* HEADER */
 .header{
-  background:#0a0a0a;
-  padding:10px 15px;
   display:flex;
   align-items:center;
   gap:15px;
+  padding:10px;
+  background:#0a0a0a;
   border-bottom:2px solid #222;
 }
-
-.logo{
-  font-size:22px;
-  font-weight:bold;
-  color:#00ffcc;
-}
-
-/* BUSCADOR */
-.search{
-  flex:1;
-}
-
+.logo{color:#00ffcc;font-size:22px;font-weight:bold;}
 .search input{
-  width:100%;
   padding:8px;
   border-radius:6px;
   border:none;
-  outline:none;
 }
-
-/* MODOS */
-.mode-select{
+.mode{
+  padding:8px;
   background:#1e1e1e;
   color:white;
   border:none;
-  padding:8px;
   border-radius:6px;
-  font-weight:bold;
 }
 
-/* CONTENEDOR */
+/* LAYOUT */
 .main{
   display:flex;
-  height:calc(100vh - 56px);
+  height:calc(100vh - 60px);
 }
 
 /* TIERS */
 .tiers{
-  width:120px;
-  background:#151515;
+  width:180px;
   padding:10px;
+  background:#151515;
+  overflow-y:auto;
 }
-
 .tier{
   margin-bottom:8px;
   padding:10px;
-  text-align:center;
   font-weight:bold;
   border-radius:6px;
 }
-
 .ht1{background:#ff4d4d;}
 .lt1{background:#ff944d;}
 .ht2{background:#ffd24d;color:black;}
@@ -93,7 +75,6 @@ body{
   align-content:flex-start;
   overflow-y:auto;
 }
-
 .player{
   background:#2ee6c7;
   color:black;
@@ -101,76 +82,90 @@ body{
   border-radius:6px;
   font-weight:bold;
   cursor:grab;
-  user-select:none;
 }
+.player:active{cursor:grabbing;}
 </style>
 </head>
 
 <body>
 
-<!-- BARRA SUPERIOR -->
+<!-- HEADER -->
 <div class="header">
   <div class="logo">🔥 Unite Tiers</div>
 
-  <div class="search">
-    <input type="text" placeholder="Buscar jugador..." onkeyup="buscarJugador(this.value)">
-  </div>
+  <input class="search" type="text" placeholder="Buscar jugador..." onkeyup="buscar(this.value)">
 
-  <!-- MODOS -->
-  <select class="mode-select">
+  <select class="mode" onchange="cambiarModo(this.value)">
+    <option>Sword</option>
     <option>CrystalPVP</option>
     <option>UHC</option>
     <option>POT</option>
     <option>NetPot</option>
     <option>Axe</option>
     <option>SMP</option>
-    <option>Sword</option>
     <option>Mace</option>
   </select>
 </div>
 
-<!-- CONTENIDO -->
 <div class="main">
 
   <!-- TIERS -->
-  <div class="tiers">
-    <div class="tier ht1">HT1</div>
-    <div class="tier lt1">LT1</div>
-    <div class="tier ht2">HT2</div>
-    <div class="tier lt2">LT2</div>
-    <div class="tier ht3">HT3</div>
-    <div class="tier lt3">LT3</div>
-    <div class="tier ht4">HT4</div>
-    <div class="tier lt4">LT4</div>
-    <div class="tier ht5">HT5</div>
-    <div class="tier lt5">LT5</div>
-  </div>
+  <div class="tiers" id="tiers"></div>
 
   <!-- JUGADORES -->
-  <div class="players">
-    <div class="player">Player1</div>
-    <div class="player">Player2</div>
-    <div class="player">Player3</div>
-    <div class="player">Player4</div>
-    <div class="player">Player5</div>
-    <div class="player">Player6</div>
-    <div class="player">Player7</div>
-    <div class="player">Player8</div>
-    <div class="player">Player9</div>
-    <div class="player">Player10</div>
-  </div>
+  <div class="players" id="players"></div>
 
 </div>
 
 <script>
-function buscarJugador(texto){
-  texto = texto.toLowerCase();
-  document.querySelectorAll(".player").forEach(p=>{
-    p.style.display = p.textContent.toLowerCase().includes(texto)
-      ? "block"
-      : "none";
+let modoActual = "Sword";
+const tiersOrden = ["HT1","LT1","HT2","LT2","HT3","LT3","HT4","LT4","HT5","LT5"];
+
+// CREAR TIERS
+function crearTiers(){
+  const t = document.getElementById("tiers");
+  t.innerHTML = "";
+  tiersOrden.forEach(x=>{
+    const d = document.createElement("div");
+    d.className = "tier " + x.toLowerCase();
+    d.textContent = x + " " + modoActual;
+    d.ondragover = e => e.preventDefault();
+    d.ondrop = e => d.appendChild(document.getElementById(e.dataTransfer.getData("id")));
+    t.appendChild(d);
   });
 }
+
+// CREAR 100 JUGADORES
+function crearJugadores(){
+  const p = document.getElementById("players");
+  for(let i=1;i<=100;i++){
+    const d = document.createElement("div");
+    d.className = "player";
+    d.textContent = "Player" + i;
+    d.id = "p"+i;
+    d.draggable = true;
+    d.ondragstart = e => e.dataTransfer.setData("id", d.id);
+    p.appendChild(d);
+  }
+}
+
+// BUSCAR
+function buscar(txt){
+  txt = txt.toLowerCase();
+  document.querySelectorAll(".player").forEach(p=>{
+    p.style.display = p.textContent.toLowerCase().includes(txt) ? "block" : "none";
+  });
+}
+
+// CAMBIAR MODO
+function cambiarModo(m){
+  modoActual = m;
+  crearTiers();
+}
+
+// INIT
+crearTiers();
+crearJugadores();
 </script>
 
 </body>
